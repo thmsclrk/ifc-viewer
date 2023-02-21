@@ -1,0 +1,36 @@
+import { Line } from 'three';
+import { IFCModel } from 'web-ifc-three/IFC/components/IFCModel';
+import { IfcContext } from '../context';
+export declare enum SelectionWindowMode {
+    lasso = 0,
+    box = 1
+}
+export declare class SelectionWindow {
+    private context;
+    toolMode: SelectionWindowMode;
+    onSelected?: (model: IFCModel, indices: number[]) => void;
+    selectionShape: Line<import("three").BufferGeometry, import("three").Material | import("three").Material[]>;
+    private dragging;
+    private selectionPoints;
+    private selectionShapeNeedsUpdate;
+    private selectionNeedsUpdate;
+    private startX;
+    private startY;
+    private prevX;
+    private prevY;
+    private tempVec0;
+    private tempVec1;
+    private tempVec2;
+    private toScreenSpaceMatrix;
+    private lassoSegments;
+    private caster;
+    constructor(context: IfcContext);
+    setupSelectionShape(): void;
+    onDragStarted(): void;
+    onDragFinished(): void;
+    onDrag(): void;
+    updateSelectionLasso(): void;
+    updateAll(): void;
+    update(model: IFCModel): void;
+    updateSelection(model: IFCModel): void;
+}

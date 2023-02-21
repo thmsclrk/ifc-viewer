@@ -1,0 +1,7 @@
+import { Line3, Vector3 } from 'three';
+export declare class SelectionBoxMath {
+    getConvexHull(points: Vector3[]): Vector3[] | null;
+    pointRayCrossesLine(point: Vector3, line: Line3, prevDirection: boolean, thisDirection: boolean): boolean;
+    pointRayCrossesSegments(point: Vector3, segments: Line3[]): number;
+    lineCrossesLine(l1: Line3, l2: Line3): boolean;
+}

@@ -1,0 +1,15 @@
+import { Line3, Matrix4, Mesh, Vector3 } from 'three';
+import { SelectionBoxMath } from './selection-window-math';
+export declare class ShapeCaster {
+    private toScreenSpaceMatrix;
+    private lassoSegments;
+    boxPoints: Vector3[];
+    boxLines: Line3[];
+    perBoundsSegments: any[];
+    math: SelectionBoxMath;
+    selectModel: boolean;
+    useBoundsTree: boolean;
+    selectionMode: string;
+    constructor(toScreenSpaceMatrix: Matrix4, lassoSegments: any);
+    shapeCast(mesh: Mesh, indices: number[]): void;
+}

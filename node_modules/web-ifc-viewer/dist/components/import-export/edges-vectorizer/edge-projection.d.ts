@@ -1,0 +1,20 @@
+import * as THREE from 'three';
+import { LineSegments, Mesh, Scene } from 'three';
+import { IfcContext } from '../../context';
+export declare class EdgeProjector {
+    private context;
+    params: {
+        displayModel: string;
+        displayEdges: boolean;
+        displayProjection: boolean;
+        useBVH: boolean;
+        sortEdges: boolean;
+        amount: number;
+        color: number;
+    };
+    projectedEdges: LineSegments[];
+    constructor(context: IfcContext);
+    dispose(): void;
+    projectEdges(model: Mesh): Promise<THREE.LineSegments<THREE.BufferGeometry, THREE.LineBasicMaterial>>;
+    updateEdges(scene: Scene, params: any, model: any, projection: any): Generator<undefined, void, unknown>;
+}

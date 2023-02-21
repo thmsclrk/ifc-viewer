@@ -1,0 +1,22 @@
+import { Color, Box3 } from 'three';
+import { IfcDimensions, PlanView } from '../display';
+export declare class PDFWriter {
+    documents: {
+        [id: string]: {
+            scale: number;
+            drawing: any;
+        };
+    };
+    private errorText;
+    dispose(): void;
+    setLineWidth(id: string, lineWidth: number): void;
+    setColor(id: string, color: Color): void;
+    setScale(id: string, scale: number): void;
+    newDocument(id: string, jsPDFDocument: any, scale?: number): void;
+    getScale(bbox: Box3, pageHeight: number, pageWidth: number): number;
+    drawNamedLayer(id: string, plan: PlanView, layerName: string, dims?: IfcDimensions): void;
+    draw(id: string, coordinates: ArrayLike<number>, box: Box3): void;
+    addLabels(id: string, ifcDimensions: IfcDimensions, box: Box3): void;
+    exportPDF(id: string, exportName: string): void;
+    private getDocument;
+}

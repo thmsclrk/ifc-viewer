@@ -1,0 +1,24 @@
+import { LineSegments, Material, Mesh } from 'three';
+import { Subset } from 'web-ifc-three/IFC/components/subsets/SubsetManager';
+import { IfcContext } from '../context';
+export declare class Edges {
+    private context;
+    threshold: number;
+    private readonly edges;
+    constructor(context: IfcContext);
+    private static setupModelMaterial;
+    dispose(): void;
+    getAll(): string[];
+    get(name: string): {
+        edges: LineSegments<import("three").BufferGeometry, Material | Material[]>;
+        originalMaterials: Material | Material[];
+        baseMaterial: Material | undefined;
+        model: Mesh<import("three").BufferGeometry, Material | Material[]>;
+        active: boolean;
+    };
+    create(name: string, modelID: number, lineMaterial: Material, material?: Material): void;
+    createFromSubset(name: string, subset: Subset, lineMaterial: Material, material?: Material): void;
+    createFromMesh(name: string, mesh: Mesh, lineMaterial: Material, material?: Material): void;
+    toggle(name: string, active?: boolean): void;
+    private setupModelMaterials;
+}

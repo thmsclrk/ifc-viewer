@@ -1,0 +1,18 @@
+import { Pass, FullScreenQuad } from 'three/examples/jsm/postprocessing/Pass';
+import { MeshNormalMaterial, PerspectiveCamera, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget } from 'three';
+declare class CustomOutlinePass extends Pass {
+    renderScene: Scene;
+    camera: PerspectiveCamera;
+    resolution: Vector2;
+    fsQuad: FullScreenQuad;
+    normalTarget: WebGLRenderTarget;
+    normalOverrideMaterial: MeshNormalMaterial;
+    constructor(resolution: Vector2, scene: Scene, camera: PerspectiveCamera);
+    dispose(): void;
+    setSize(width: number, height: number): void;
+    render(renderer: WebGLRenderer, writeBuffer: any, readBuffer: any): void;
+    get vertexShader(): string;
+    get fragmentShader(): string;
+    createOutlinePostProcessMaterial(): ShaderMaterial;
+}
+export { CustomOutlinePass };

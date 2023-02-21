@@ -1,0 +1,22 @@
+import { Camera, Vector2, WebGLRenderer } from 'three';
+import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { IfcComponent } from '../../../base-types';
+import { Postproduction } from './postproduction';
+import { IfcContext } from '../context';
+export declare class IfcRenderer extends IfcComponent {
+    renderer: WebGLRenderer;
+    renderer2D: CSS2DRenderer;
+    postProduction: Postproduction;
+    tempCanvas?: HTMLCanvasElement;
+    tempRenderer?: WebGLRenderer;
+    blocked: boolean;
+    private readonly container;
+    private readonly context;
+    constructor(context: IfcContext);
+    dispose(): void;
+    update(_delta: number): void;
+    getSize(): Vector2;
+    adjustRendererSize(): void;
+    newScreenshot(camera?: Camera, dimensions?: Vector2): string;
+    private setupRenderers;
+}

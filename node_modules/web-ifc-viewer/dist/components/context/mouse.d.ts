@@ -1,0 +1,7 @@
+import { Vector2 } from 'three';
+export declare class IfcMouse {
+    position: Vector2;
+    rawPosition: Vector2;
+    constructor(domElement: HTMLCanvasElement);
+    private setupMousePositionUpdate;
+}

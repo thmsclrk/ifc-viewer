@@ -1,0 +1,26 @@
+import { Intersection, Material, Mesh } from 'three';
+import { IFCLoader } from 'web-ifc-three/IFCLoader';
+import { IfcComponent } from '../../../base-types';
+import { IfcContext } from '../../context';
+export declare class IfcSelection extends IfcComponent {
+    private context;
+    material?: Material;
+    meshes: Set<Mesh<import("three").BufferGeometry, Material | Material[]>>;
+    fastRemovePrevious: boolean;
+    renderOrder: number;
+    private modelIDs;
+    private selectedFaces;
+    private loader;
+    private readonly scene;
+    constructor(context: IfcContext, loader: IFCLoader, material?: Material);
+    dispose(): void;
+    pick: (item: Intersection, focusSelection?: boolean, removePrevious?: boolean) => Promise<{
+        modelID: number;
+        id: number;
+    } | null>;
+    unpick(): void;
+    pickByID: (modelID: number, ids: number[], focusSelection?: boolean, removePrevious?: boolean) => Promise<void>;
+    newSelection: (modelID: number, ids: number[], removePrevious: boolean) => import("web-ifc-three/IFC/components/subsets/SubsetManager").Subset;
+    toggleVisibility(visible: boolean): void;
+    private focusSelection;
+}

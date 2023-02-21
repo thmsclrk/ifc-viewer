@@ -1,0 +1,60 @@
+import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
+import { BufferGeometry, Mesh, Plane } from 'three';
+import { IfcManager } from '../../ifc';
+import { IfcContext } from '../../context';
+export interface Style {
+    ids: number[];
+    categories: number[];
+    meshes: Mesh[];
+    material: LineMaterial;
+}
+export interface StyleList {
+    [styleName: string]: Style;
+}
+export interface EdgesItems {
+    [styleName: string]: {
+        generatorGeometry: BufferGeometry;
+        mesh: LineSegments2;
+    };
+}
+export interface Model extends Mesh {
+    modelID: number;
+}
+export declare class ClippingEdges {
+    static readonly styles: StyleList;
+    static forceStyleUpdate: boolean;
+    static createDefaultIfcStyles: boolean;
+    static edgesParent: any;
+    private static invisibleMaterial;
+    private static defaultMaterial;
+    static context: IfcContext;
+    static ifc: IfcManager;
+    private static basicEdges;
+    edges: EdgesItems;
+    private isVisible;
+    private inverseMatrix;
+    private localPlane;
+    private tempLine;
+    private tempVector;
+    private readonly clippingPlane;
+    private stylesInitialized;
+    constructor(clippingPlane: Plane);
+    get visible(): boolean;
+    set visible(visible: boolean);
+    private static newGeneratorGeometry;
+    dispose(): void;
+    disposeStylesAndHelpers(): void;
+    updateEdges(): Promise<void>;
+    static newStyle(styleName: string, categories: number[], material?: LineMaterial): Promise<void>;
+    static newStyleFromMesh(styleName: string, meshes: Model[], material?: LineMaterial): Promise<void>;
+    updateStylesIfcGeometry(): Promise<void>;
+    private updateSubsetsTranformation;
+    private updateIfcStyles;
+    private createDefaultIfcStyles;
+    private static newSubset;
+    private static getItemIDs;
+    private static getVisibileItems;
+    private newThickEdges;
+    private drawEdges;
+}

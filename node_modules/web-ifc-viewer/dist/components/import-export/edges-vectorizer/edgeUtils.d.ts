@@ -1,0 +1,13 @@
+import { Vector3, Line3, Plane, BufferGeometry } from 'three';
+export declare const generateEdges: (geometry: BufferGeometry, projectionDir: Vector3, thresholdAngle?: number) => Line3[];
+export declare const getOverlappingLine: (line: Line3, triangle: any, lineTarget?: Line3) => Line3 | null;
+export declare const getPlaneYAtPoint: (plane: Plane, point: Vector3, target?: any) => void;
+export declare const isLineAbovePlane: (plane: Plane, line: Line3) => boolean;
+export declare const isYProjectedLineDegenerate: (line: Line3) => boolean;
+export declare function isYProjectedTriangleDegenerate(tri: any): boolean;
+export declare function isLineTriangleEdge(tri: any, line: Line3): boolean;
+export declare const getProjectedOverlaps: (tri: any, line: Line3, overlapsTarget: any) => boolean;
+export declare const trimToBeneathTriPlane: (tri: any, line: any, lineTarget: any) => boolean;
+export declare const overlapsToLines: (line: Line3, overlaps: any, target?: any[]) => any[];
+export declare function edgesToGeometry(edges: any[], y?: any): BufferGeometry;
+export declare function compressEdgeOverlaps(overlaps: any[]): void;

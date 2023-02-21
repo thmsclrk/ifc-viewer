@@ -1,0 +1,19 @@
+import { IFCLoader } from 'web-ifc-three/IFCLoader';
+export declare class StoreyManager {
+    list: {
+        [modelID: number]: any[];
+    };
+    loader?: IFCLoader;
+    private unitsFactor;
+    private loaderError;
+    dispose(): void;
+    getAbsoluteElevation(modelID: number): Promise<{
+        [name: string]: number;
+    }>;
+    private getCurrentStoreys;
+    private getSiteCoords;
+    private getBuilding;
+    private getTransformHeight;
+    private getStoreyName;
+    private getUnitsFactor;
+}
