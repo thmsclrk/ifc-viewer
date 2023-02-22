@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "rollup": "^3.17.2",
     "three": "^0.135.0",
     "web-ifc-three": "^0.0.122",
     "web-ifc-viewer": "^1.0.213"
