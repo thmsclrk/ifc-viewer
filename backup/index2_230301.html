@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/bundle.js" type="module" defer></script>
+    <title>Toolkit</title>
+  </head>
+  <body>
+    <div id="top-nav">
+      <input type="file" id="file-input" />
+      <button id="reset">Reset</button>
+      <button id="add-to-export">Add to Export</button>
+      <button id="reset-view">Reset View</button>
+      <button id="sel-all-walls">Select All Walls</button>
+      <button id="sel-all-elements">Select All Elements</button>
+      <button id="json-export">Export JSON</button>
+      <button id="axes-toggle">Toggle Axes</button>
+      <button id="grid-toggle">Toggle Grid</button>
+    </div>
+    <div class="container">
+      <div class="column-left">
+        <div class="ifc-tree-menu">
+          <ul id="myUL">
+            <li id="tree-root">
+              <p>Load a model to view spatial tree.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="column-center">
+        <div id="viewer-container"></div>
+      </div>
+      <div class="column-right">
+        <div class="ifc-property-menu">
+          <div class="ifc-property-item">
+            <div>Key: Value</div>
+            <!-- <div class="ifc-property-value">Value</div> -->
+          </div>
+          <div id="ifc-property-menu-root"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
