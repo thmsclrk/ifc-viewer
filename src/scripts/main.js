@@ -4,17 +4,22 @@ import { IFCWALLSTANDARDCASE } from "web-ifc";
 
 const container = document.getElementById("viewer-container");
 
-const viewer = new IfcViewerAPI({
+let viewer = new IfcViewerAPI({
   container,
   backgroundColor: new Color(0x232323),
 });
 
-viewer.IFC.applyWebIfcConfig({
-  COORDINATE_TO_ORIGIN: true,
-});
-// Create grid and axes
-viewer.grid.setGrid();
-viewer.axes.setAxes();
+// VIEWPORT SETTINGS
+function setupViewerOptions() {
+  viewer.IFC.applyWebIfcConfig({
+    COORDINATE_TO_ORIGIN: true,
+  });
+
+  viewer.grid.setGrid();
+  viewer.axes.setAxes();
+}
+
+setupViewerOptions();
 
 // Initialise tooltips
 const tooltipTriggerList = document.querySelectorAll(
@@ -33,11 +38,11 @@ let axesOn = true;
 
 // Demonstration IFC Files
 const demoIfcFiles = [
-  "../build/assets/ifc/01.ifc",
-  "../build/assets/ifc/02.ifc",
-  "../build/assets/ifc/03.ifc",
-  "../build/assets/ifc/04.ifc",
-  "../build/assets/ifc/05.ifc",
+  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_01.ifc",
+  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_02.ifc",
+  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rac_advanced_sample_project.ifc",
+  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rst_advanced_sample_project.ifc",
+  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rme_advanced_sample_project.ifc",
 ];
 
 const demoIfcFileElems = [
@@ -100,7 +105,7 @@ async function loadIFC(url) {
 window.onmousemove = async () => await viewer.IFC.selector.prePickIfcItem();
 
 // ELEMENT SELECTION
-window.onclick = async () => {
+window.ondblclick = async () => {
   const result = await viewer.IFC.selector.pickIfcItem(true, true);
   if (!result) {
     viewer.IFC.selector.unpickIfcItems();
@@ -116,23 +121,29 @@ window.onclick = async () => {
   updatepropertyview(result);
 };
 
-// CLEAR MODELS
+// RESET ALL
 const button_resetAll = document.getElementById("button-reset-all");
-button_resetAll.addEventListener("click", async () => {
-  await viewer.dispose();
-  viewer = null;
+button_resetAll.addEventListener("click", () => {
+  console.log("button clicked");
+
+  viewer.dispose(0);
+  clearPanels();
+
   viewer = new IfcViewerAPI({
     container,
     backgroundColor: new Color(0x232323),
   });
 
-  viewer.IFC.applyWebIfcConfig({
-    COORDINATE_TO_ORIGIN: true,
-  });
-  // Create grid and axes
-  viewer.grid.setGrid();
-  viewer.axes.setAxes();
+  setupViewerOptions();
 });
+
+// CLEAR PANELS
+function clearPanels() {
+  const root = document.getElementById("tree-root");
+  removeAllChildren(root);
+  const propviewer = document.getElementById("ifc-property-view");
+  removeAllChildren(propviewer);
+}
 
 // FILE UPLOAD
 const input = document.getElementById("button-file-input");
@@ -185,17 +196,27 @@ addToExportButton.addEventListener("click", () => {
 // RESET VIEW
 const resetViewButton = document.getElementById("reset-view");
 resetViewButton.addEventListener("click", () => {
-  viewer.IFC.selector.unHighlightIfcItems();
+  viewer.IFC.selector.unpickIfcItems();
 });
 
-// SELECT ELEMENT BY ID
-const selElemIDButton = document.getElementById("sel-elem-ID");
+// SELECT BY ELEMENT ID
+const selElemIDButton = document.getElementById("button-search-element-id");
 selElemIDButton.addEventListener("click", async () => {
-  // console.log(model);
-  const elemExpressId = prompt("Please enter the ExpressID of the element: ");
-  console.log(elemExpressId);
-  pickSelItems(elemExpressId);
+  elemSearch();
 });
+
+function elemSearch() {
+  // console.log(model);
+  const idSearch = document.getElementById("search-element-id");
+  const searchTerm = idSearch.value;
+  // console.log(searchTerm);
+  try {
+    console.log(searchTerm);
+    pickSelItems(searchTerm);
+  } catch (error) {
+    console.log("Element not found");
+  }
+}
 
 async function pickSelItems(elemExpressId) {
   await viewer.IFC.selector.pickIfcItemsByID(
@@ -210,9 +231,11 @@ async function updatepropertyview(selObject) {
   const propviewer = document.getElementById("ifc-property-view");
 
   removeAllChildren(propviewer);
+
+  // try {
   const { modelID, id } = selObject;
   const objectProps = await viewer.IFC.getProperties(modelID, id, true, true);
-  // console.log(objectProps);
+  console.log(objectProps);
   const objectPsets = objectProps.psets;
 
   for (let pset of objectPsets) {
@@ -257,9 +280,13 @@ async function updatepropertyview(selObject) {
       const tableFieldNodeOneText = document.createTextNode(
         psetItem.Name.value
       );
-      const tableFieldNodeTwoText = document.createTextNode(
-        psetItem.NominalValue.value
-      );
+
+      let tableFieldNodeTwoText = document.createTextNode("");
+      try {
+        tableFieldNodeTwoText = document.createTextNode(
+          psetItem.NominalValue.value
+        );
+      } catch (error) {}
 
       tableFieldNodeOne.appendChild(tableFieldNodeOneText);
       tableFieldNodeTwo.appendChild(tableFieldNodeTwoText);
@@ -273,6 +300,12 @@ async function updatepropertyview(selObject) {
     }
     propviewer.appendChild(tableNode);
   }
+  // } catch (error) {
+  //   const errorTextNode = document.createElement("p");
+  //   const errorText = document.createTextNode("No properties found");
+  //   errorTextNode.appendChild(errorText);
+  //   propviewer.appendChild(errorTextNode);
+  // }
 }
 
 // HELPER - ADD CHILD (NOT USED)

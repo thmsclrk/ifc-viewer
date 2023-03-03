@@ -17,7 +17,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <title>IFC Toolkit v0.1</title>
+    <title>IFC Toolkit v0.1.1</title>
   </head>
   <body>
     <div
@@ -63,7 +63,7 @@
                 aria-label="button group"
               >
                 <button type="button" class="btn btn-light" disabled>
-                  IFC v0.1
+                  TOOLKIT v0.1.1
                 </button>
               </div>
               <div
@@ -77,7 +77,7 @@
                   onclick="document.getElementById('button-file-input').click();"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  data-bs-title="Open IFC File"
+                  data-bs-title="Add IFC File"
                 >
                   <i class="bi bi-folder"></i>
                 </button>
@@ -92,27 +92,27 @@
                 <ul class="dropdown-menu">
                   <li>
                     <a class="dropdown-item" href="#" id="ifc-demo-one"
-                      >IFC Demo File #1</a
+                      >IFC Demo File #1 (Simple Project)</a
                     >
                   </li>
                   <li>
                     <a class="dropdown-item" href="#" id="ifc-demo-two"
-                      >IFC Demo File #2</a
+                      >IFC Demo File #2 (Simple Project)</a
                     >
                   </li>
                   <li>
                     <a class="dropdown-item" href="#" id="ifc-demo-three"
-                      >IFC Demo File #3</a
+                      >IFC Demo File #3 (Adv. Architectural Project)</a
                     >
                   </li>
                   <li>
                     <a class="dropdown-item" href="#" id="ifc-demo-four"
-                      >IFC Demo File #4</a
+                      >IFC Demo File #4 (Adv. Structural Project)</a
                     >
                   </li>
                   <li>
                     <a class="dropdown-item" href="#" id="ifc-demo-five"
-                      >IFC Demo File #5</a
+                      >IFC Demo File #5 (Adv. Mechanical Project)</a
                     >
                   </li>
                 </ul>
@@ -125,7 +125,6 @@
                 <button
                   type="button"
                   class="btn btn-secondary"
-                  disabled
                   id="progress-text"
                 >
                   %
@@ -140,40 +139,22 @@
                 <button
                   type="button"
                   class="btn btn-secondary"
-                  disabled
                   id="button-reset-all"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  data-bs-title="Reset"
+                  data-bs-title="Reset Viewer"
                 >
                   <i class="bi bi-arrow-repeat"></i>
                 </button>
                 <button
                   type="button"
                   class="btn btn-secondary"
-                  disabled
                   id="reset-view"
-                >
-                  <i class="bi bi-arrow-counterclockwise"></i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  disabled
-                  id="sel-all-walls"
-                >
-                  <i class="bi bi-cursor"></i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  disabled
-                  id="sel-ifc-main"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  data-bs-title="Select Overall IFC"
+                  data-bs-title="Reset Selection"
                 >
-                  <i class="bi bi-cursor-fill"></i>
+                  <i class="bi bi-arrow-counterclockwise"></i>
                 </button>
                 <button
                   type="button"
@@ -226,6 +207,26 @@
                   <i class="bi bi-border-all"></i>
                 </button>
               </div>
+              <div
+                class="input-group input-group-sm me-2"
+                role="group"
+                aria-label="input group"
+              >
+                <input
+                  class="form-control"
+                  type="search"
+                  placeholder="Search by Element ID"
+                  aria-label="Search"
+                  id="search-element-id"
+                />
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  id="button-search-element-id"
+                >
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
             </div>
           </div>
           <div class="col-1 d-flex justify-content-end">
@@ -249,7 +250,7 @@
           </div>
         </div>
         <div class="row mt-3 justify-content-between">
-          <div class="col-4 collapse" id="leftPanelCollapse">
+          <div class="col-4 collapse position-absolute" id="leftPanelCollapse">
             <div class="card" style="max-height: 90vh">
               <div class="card-header">Spatial Tree</div>
               <div class="card-body mh-100 overflow-y-auto">
@@ -262,11 +263,14 @@
               </div>
             </div>
           </div>
-          <div class="col" display="none" visibility="hidden">
-            <!-- Empty col for justification -->
-          </div>
+          <!-- <div class="col" display="none" visibility="hidden"> -->
+          <!-- Empty col for justification -->
+          <!-- </div> -->
           <!-- RIGHT PANEL -->
-          <div class="col-4 collapse" id="rightPanelCollapse">
+          <div
+            class="col-4 collapse offset-md-8 position-absolute"
+            id="rightPanelCollapse"
+          >
             <div class="card" style="max-height: 90vh">
               <div class="card-header">
                 <div>Element Properties</div>
@@ -295,6 +299,7 @@
         </div>
       </div>
     </div>
+
     <input type="file" id="button-file-input" style="display: none" />
     <!-- Bootstrap -->
     <script
