@@ -122108,24 +122108,6 @@ selectAllButton.addEventListener("click", async () => {
   );
 });
 
-// ZOOM EXTENTS
-const zoomExtentsButton = document.getElementById("button-zoom-extents");
-zoomExtentsButton.addEventListener("click", async () => {
-  // console.log(guidMap);
-  let elems = [];
-  for (let elem of guidMap) {
-    elems.push(elem[1]);
-  }
-  // console.log(elems);
-  await viewer.IFC.selector.pickIfcItemsByID(
-    model.modelID,
-    elems,
-    true
-  );
-
-  viewer.IFC.selector.unpickIfcItems();
-});
-
 // SELECT BY ELEMENT ID
 const selElemIDButton = document.getElementById("button-search-element-id");
 selElemIDButton.addEventListener("click", async () => {
