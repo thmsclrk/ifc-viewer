@@ -117,7 +117,7 @@
                   </li>
                 </ul>
               </div>
-              <div
+              <!-- <div
                 class="btn-group btn-group-sm me-2"
                 role="group"
                 aria-label="button group"
@@ -129,7 +129,7 @@
                 >
                   %
                 </button>
-              </div>
+              </div> -->
 
               <div
                 class="btn-group btn-group-sm me-2"
@@ -152,7 +152,7 @@
                   id="reset-view"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
-                  data-bs-title="Reset Selection"
+                  data-bs-title="Clear Selection"
                 >
                   <i class="bi bi-arrow-counterclockwise"></i>
                 </button>
@@ -215,7 +215,7 @@
                 <input
                   class="form-control"
                   type="search"
-                  placeholder="Search by Element ID"
+                  placeholder="Search by GUID"
                   aria-label="Search"
                   id="search-element-id"
                 />
@@ -226,6 +226,13 @@
                 >
                   <i class="bi bi-search"></i>
                 </button>
+              </div>
+              <div
+                class="spinner-border text-light invisible"
+                role="status"
+                id="loadingSpinner"
+              >
+                <span class="visually-hidden">Loading...</span>
               </div>
             </div>
           </div>
@@ -251,7 +258,7 @@
         </div>
         <div class="row mt-3 justify-content-between">
           <div class="col-4 collapse position-absolute" id="leftPanelCollapse">
-            <div class="card" style="max-height: 90vh">
+            <div class="card shadow-sm" style="max-height: 90vh">
               <div class="card-header">Spatial Tree</div>
               <div class="card-body mh-100 overflow-y-auto">
                 <!-- <p class="card-text"></p> -->
@@ -263,15 +270,13 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col" display="none" visibility="hidden"> -->
-          <!-- Empty col for justification -->
-          <!-- </div> -->
+
           <!-- RIGHT PANEL -->
           <div
             class="col-4 collapse offset-md-8 position-absolute"
             id="rightPanelCollapse"
           >
-            <div class="card" style="max-height: 90vh">
+            <div class="card shadow-sm" style="max-height: 90vh">
               <div class="card-header">
                 <div>Element Properties</div>
               </div>
@@ -279,19 +284,231 @@
                 class="card-body mh-100 overflow-y-auto"
                 id="rightSubPanel-One-Collapse"
               >
-                <div>
-                  <input
-                    class="form-control mb-3"
-                    type="search"
-                    placeholder="Search for a Pset or Property"
-                    aria-label="Search"
-                    id="property-search"
-                  />
+                <div class="container">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-native-props"
+                      value="option1"
+                      checked
+                    />
+                    <label class="form-check-label" for="inlineCheckbox1"
+                      >Native</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-type-props"
+                      value="option2"
+                      checked
+                    />
+                    <label class="form-check-label" for="inlineCheckbox2"
+                      >Type</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-material-props"
+                      value="option3"
+                      disabled
+                    />
+                    <label class="form-check-label" for="inlineCheckbox3"
+                      >Materials (WIP)</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-pset-props"
+                      value="option3"
+                      checked
+                    />
+                    <label class="form-check-label" for="inlineCheckbox3"
+                      >Psets</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-qset-props"
+                      value="option3"
+                      disabled
+                    />
+                    <label class="form-check-label" for="inlineCheckbox3"
+                      >Qsets (WIP)</label
+                    >
+                  </div>
                 </div>
-                <div class="body" id="ifc-property-view">
-                  <p>
-                    Load a model and select an element to view its properties
-                  </p>
+                <div
+                  class="accordion accordion-flush"
+                  id="accordionFlushExample"
+                >
+                  <div class="accordion-item" id="accordion-native">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseOne"
+                      >
+                        Native Properties
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseOne"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingOne"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-native-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its Native
+                          Properties
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item" id="accordion-type">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseTwo"
+                      >
+                        Type Properties
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseTwo"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingTwo"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-type-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its Type
+                          Properties
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item" id="accordion-materials">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseThree"
+                      >
+                        Material Properties
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseThree"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingThree"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-material-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its
+                          Material Properties
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item" id="accordion-psets">
+                    <h2 class="accordion-header" id="flush-headingFour">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFour"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseFour"
+                      >
+                        Property Sets
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseFour"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingFour"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        <div>
+                          <input
+                            class="form-control mb-3"
+                            type="search"
+                            placeholder="Search for a Property"
+                            aria-label="Search"
+                            id="property-search"
+                          />
+                        </div>
+
+                        <div class="ifc-property-view" id="props-property-sets">
+                          <p>
+                            Load a model and select an element to view its
+                            Property Sets
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item" id="accordion-qsets">
+                    <h2 class="accordion-header" id="flush-headingFive">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFive"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseFive"
+                      >
+                        Quantity Sets
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseFive"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingFive"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-qset-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its
+                          Quantity Sets (Feature WIP)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -299,7 +516,6 @@
         </div>
       </div>
     </div>
-
     <input type="file" id="button-file-input" style="display: none" />
     <!-- Bootstrap -->
     <script
