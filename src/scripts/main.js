@@ -171,6 +171,7 @@ button_resetAll.addEventListener("click", () => {
 
   viewer.dispose(0);
   clearPanels();
+  guidMap = [];
 
   viewer = new IfcViewerAPI({
     container,
@@ -241,6 +242,22 @@ addToExportButton.addEventListener("click", () => {
 const resetViewButton = document.getElementById("reset-view");
 resetViewButton.addEventListener("click", () => {
   viewer.IFC.selector.unpickIfcItems();
+});
+
+// SELECT ALL ELEMENTS
+const selectAllButton = document.getElementById("button-sel-all");
+selectAllButton.addEventListener("click", async () => {
+  // console.log(guidMap);
+  let elems = [];
+  for (let elem of guidMap) {
+    elems.push(elem[1]);
+  }
+  // console.log(elems);
+  const pickedItems = await viewer.IFC.selector.pickIfcItemsByID(
+    model.modelID,
+    elems,
+    true
+  );
 });
 
 // SELECT BY ELEMENT ID
@@ -642,7 +659,7 @@ function updatePropFilters() {
     qsetPropPanel
   );
   for (let i = 0; i < buttons.length; i++) {
-    console.log("here");
+    // console.log("here");
     // panels[i].setAttribute("class", "");
     panels[i].style.display = "none";
     // panels[i].classList.add("form-check-input");
