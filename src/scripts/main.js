@@ -104,10 +104,12 @@ async function loadIFC(url) {
 
   // INITIALISATION FUNCTIONS
   // console.log(ifcProject);
-  serializeAllProperties(model);
+  await serializeAllProperties(model);
   createTreeMenu(ifcProject);
-  elemToString(model.modelID, ifcProject);
+  await elemToString(model.modelID, ifcProject);
   updatePropFilters();
+  allModelProperties();
+  console.log(guidMap);
 
   loadingSpinner(false);
 }
@@ -151,18 +153,25 @@ window.ondblclick = async () => {
     return;
   }
 
+  // console.log(result);
+
   const { modelID, id } = result;
   const props = await viewer.IFC.getProperties(modelID, id, true, true);
 
-  console.log("Element Selected!", result);
+  console.log("Element Selected:", result);
   console.log(props);
 
   currentObj = props;
-  updatepropertyview(result);
-  updateNativeProperties(result);
-  updateTypeProperties(result);
-  updateMaterialProperties(result);
+  await updateElementProperties(result);
 };
+
+// UPDATE ALL PROPERTIES FROM SELECTION
+async function updateElementProperties(element) {
+  await propertyViewSetup(element);
+  await updateNativeProperties(element);
+  await updateTypeProperties(element);
+  await updateMaterialProperties(element);
+}
 
 // RESET ALL
 const button_resetAll = document.getElementById("button-reset-all");
@@ -272,11 +281,11 @@ async function elemSearch(searchTerm, isGuid, toPick = false) {
   // Cannot pick by GUID so will not return
   if (isGuid) {
     try {
-      console.log(`Looking for element ${searchTerm}.`);
+      console.log(`Looking for element: ${searchTerm}.`);
       for (let item of guidMap) {
         if (item[0] == searchTerm) {
           if (toPick) {
-            await pickSelItems(item[1]);
+            await pickSelItem(item[1]);
             return;
           } else {
             return item[1];
@@ -287,9 +296,8 @@ async function elemSearch(searchTerm, isGuid, toPick = false) {
       console.log("Element not found");
     }
   } else {
-    console.log(`Looking for element ${searchTerm}.`);
+    console.log(`Looking for element: ${searchTerm}.`);
     for (let item of guidMap) {
-      console.log("here");
       if (item[1] == searchTerm) {
         console.log(item[0]);
         return item[0];
@@ -298,13 +306,16 @@ async function elemSearch(searchTerm, isGuid, toPick = false) {
   }
 }
 
-async function pickSelItems(elemExpressId) {
-  await viewer.IFC.selector.pickIfcItemsByID(
-    0,
-    [parseInt(elemExpressId)],
-    true
-  );
-  // await viewer.IFC.getProperties()
+async function pickSelItem(elemExpressId) {
+  try {
+    await viewer.IFC.selector.pickIfcItemsByID(0, [elemExpressId], true);
+    const selElem = {};
+    selElem.modelID = 0;
+    selElem.id = elemExpressId;
+    await updateElementProperties(selElem);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // TABLE HELPER FUNCTION, MAKES TABLE FROM LIST OF K:V PAIRS
@@ -340,6 +351,7 @@ async function updateNativeProperties(selObject) {
   const propviewer = document.getElementById("props-native-properties");
   removeAllChildren(propviewer);
   try {
+    // console.log(selObject);
     const { modelID, id } = selObject;
     const objectProps = await viewer.IFC.getProperties(modelID, id, true, true);
 
@@ -443,7 +455,7 @@ async function updateMaterialProperties(selObject) {
 }
 
 // UPDATE PSET VIEWER
-async function updatepropertyview(selObject) {
+async function propertyViewSetup(selObject) {
   const propviewer = document.getElementById("props-property-sets");
   removeAllChildren(propviewer);
 
@@ -603,7 +615,7 @@ function createSimpleChild(parent, node) {
   childNode.onclick = async () => {
     // console.log(`element ${node.expressID} selected.`);
     // viewer.IFC.selector.pickIfcItemsByID(0, [node.expressID]);
-    pickSelItems(node.expressID);
+    pickSelItem(node.expressID);
   };
 }
 
@@ -668,4 +680,17 @@ function updatePropFilters() {
       panels[i].style.display = "";
     }
   }
+}
+
+// ALL MODEL PROPERTIES
+function allModelProperties() {
+  const modelPropViewer = document.getElementById("model-properties");
+  removeAllChildren(modelPropViewer);
+
+  const newTextNode = document.createElement("p");
+  const newText = document.createTextNode(
+    `Number of elements: ${guidMap.length}`
+  );
+  newTextNode.appendChild(newText);
+  modelPropViewer.appendChild(newTextNode);
 }

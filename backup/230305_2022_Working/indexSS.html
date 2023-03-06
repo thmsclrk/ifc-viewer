@@ -261,14 +261,15 @@
           <!-- LEFT PANEL -->
           <div class="col-4 collapse position-absolute" id="leftPanelCollapse">
             <div class="card shadow-sm" style="max-height: 90vh">
-              <div class="card-header">
+              <!-- <div class="card-header">Spatial Tree</div> -->
+              <div class="card-body mh-100 overflow-y-auto">
                 <!-- <ul id="myUL">
                   <li id="tree-root">
                     <p>Load a model to view spatial tree</p>
                   </li>
                 </ul> -->
 
-                <ul class="nav nav-pills mt-2 mb-2" id="myTab" role="tablist">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button
                       class="nav-link active"
@@ -281,7 +282,7 @@
                       aria-selected="true"
                       style="margin-left: 0"
                     >
-                      Spatial Tree
+                      Home
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -296,7 +297,7 @@
                       aria-selected="false"
                       style="margin-left: 0"
                     >
-                      TBC
+                      Profile
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -310,9 +311,8 @@
                       aria-controls="contact-tab-pane"
                       aria-selected="false"
                       style="margin-left: 0"
-                      disabled
                     >
-                      TBC
+                      Contact
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -328,13 +328,11 @@
                       style="margin-left: 0"
                       disabled
                     >
-                      TBC
+                      Disabled
                     </button>
                   </li>
                 </ul>
-              </div>
-              <div class="card-body mh-100 overflow-y-auto">
-                <div class="tab-content" id="myLeftTabContent">
+                <div class="tab-content" id="myTabContent">
                   <div
                     class="tab-pane fade show active"
                     id="home-tab-pane"
@@ -391,350 +389,239 @@
           >
             <div class="card shadow-sm" style="max-height: 90vh">
               <div class="card-header">
-                <ul class="nav nav-pills mt-2 mb-2" id="myTab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link active"
-                      id="home-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#prop-one-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="home-tab-pane"
-                      aria-selected="true"
-                      style="margin-left: 0"
-                    >
-                      Element Properties
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="profile-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#prop-two-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="profile-tab-pane"
-                      aria-selected="false"
-                      style="margin-left: 0"
-                    >
-                      Model Properties (WIP)
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="contact-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#prop-three-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="contact-tab-pane"
-                      aria-selected="false"
-                      style="margin-left: 0"
-                    >
-                      TBC
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link"
-                      id="disabled-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#prop-four-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="disabled-tab-pane"
-                      aria-selected="false"
-                      style="margin-left: 0"
-                      disabled
-                    >
-                      TBC
-                    </button>
-                  </li>
-                </ul>
+                <div>Element Properties</div>
               </div>
               <div
                 class="card-body mh-100 overflow-y-auto"
                 id="rightSubPanel-One-Collapse"
               >
-                <div class="tab-content" id="myRightTabContent">
-                  <div
-                    class="tab-pane fade show active"
-                    id="prop-one-pane"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
-                    tabindex="0"
-                    style="margin-left: 0"
-                  >
-                    <div class="container">
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="toggle-native-props"
-                          value="option1"
-                          checked
-                        />
-                        <label class="form-check-label" for="inlineCheckbox1"
-                          >Native</label
-                        >
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="toggle-type-props"
-                          value="option2"
-                          checked
-                        />
-                        <label class="form-check-label" for="inlineCheckbox2"
-                          >Type</label
-                        >
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="toggle-material-props"
-                          value="option3"
-                          disabled
-                        />
-                        <label class="form-check-label" for="inlineCheckbox3"
-                          >Materials (WIP)</label
-                        >
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="toggle-pset-props"
-                          value="option3"
-                          checked
-                        />
-                        <label class="form-check-label" for="inlineCheckbox3"
-                          >Psets</label
-                        >
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="toggle-qset-props"
-                          value="option3"
-                          disabled
-                        />
-                        <label class="form-check-label" for="inlineCheckbox3"
-                          >Qsets (WIP)</label
-                        >
-                      </div>
-                    </div>
-                    <div
-                      class="accordion accordion-flush"
-                      id="accordionFlushExample"
+                <div class="container">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-native-props"
+                      value="option1"
+                      checked
+                    />
+                    <label class="form-check-label" for="inlineCheckbox1"
+                      >Native</label
                     >
-                      <div class="accordion-item" id="accordion-native">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                          <button
-                            class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseOne"
-                            aria-expanded="false"
-                            aria-controls="flush-collapseOne"
-                          >
-                            Native Properties
-                          </button>
-                        </h2>
-                        <div
-                          id="flush-collapseOne"
-                          class="accordion-collapse collapse"
-                          aria-labelledby="flush-headingOne"
-                          data-bs-parent="#accordionFlushExample"
-                        >
-                          <div
-                            class="accordion-body ifc-property-view"
-                            id="props-native-properties"
-                          >
-                            <p>
-                              Load a model and select an element to view its
-                              Native Properties
-                            </p>
-                          </div>
-                        </div>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-type-props"
+                      value="option2"
+                      checked
+                    />
+                    <label class="form-check-label" for="inlineCheckbox2"
+                      >Type</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-material-props"
+                      value="option3"
+                      disabled
+                    />
+                    <label class="form-check-label" for="inlineCheckbox3"
+                      >Materials (WIP)</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-pset-props"
+                      value="option3"
+                      checked
+                    />
+                    <label class="form-check-label" for="inlineCheckbox3"
+                      >Psets</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="toggle-qset-props"
+                      value="option3"
+                      disabled
+                    />
+                    <label class="form-check-label" for="inlineCheckbox3"
+                      >Qsets (WIP)</label
+                    >
+                  </div>
+                </div>
+                <div
+                  class="accordion accordion-flush"
+                  id="accordionFlushExample"
+                >
+                  <div class="accordion-item" id="accordion-native">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseOne"
+                      >
+                        Native Properties
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseOne"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingOne"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-native-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its Native
+                          Properties
+                        </p>
                       </div>
-                      <div class="accordion-item" id="accordion-type">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                          <button
-                            class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseTwo"
-                            aria-expanded="false"
-                            aria-controls="flush-collapseTwo"
-                          >
-                            Type Properties
-                          </button>
-                        </h2>
-                        <div
-                          id="flush-collapseTwo"
-                          class="accordion-collapse collapse"
-                          aria-labelledby="flush-headingTwo"
-                          data-bs-parent="#accordionFlushExample"
-                        >
-                          <div
-                            class="accordion-body ifc-property-view"
-                            id="props-type-properties"
-                          >
-                            <p>
-                              Load a model and select an element to view its
-                              Type Properties
-                            </p>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item" id="accordion-type">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseTwo"
+                      >
+                        Type Properties
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseTwo"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingTwo"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-type-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its Type
+                          Properties
+                        </p>
                       </div>
-                      <div class="accordion-item" id="accordion-materials">
-                        <h2 class="accordion-header" id="flush-headingThree">
-                          <button
-                            class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseThree"
-                            aria-expanded="false"
-                            aria-controls="flush-collapseThree"
-                          >
-                            Material Properties
-                          </button>
-                        </h2>
-                        <div
-                          id="flush-collapseThree"
-                          class="accordion-collapse collapse"
-                          aria-labelledby="flush-headingThree"
-                          data-bs-parent="#accordionFlushExample"
-                        >
-                          <div
-                            class="accordion-body ifc-property-view"
-                            id="props-material-properties"
-                          >
-                            <p>
-                              Load a model and select an element to view its
-                              Material Properties
-                            </p>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item" id="accordion-materials">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseThree"
+                      >
+                        Material Properties
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseThree"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingThree"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-material-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its
+                          Material Properties
+                        </p>
                       </div>
-                      <div class="accordion-item" id="accordion-psets">
-                        <h2 class="accordion-header" id="flush-headingFour">
-                          <button
-                            class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseFour"
-                            aria-expanded="false"
-                            aria-controls="flush-collapseFour"
-                          >
-                            Property Sets
-                          </button>
-                        </h2>
-                        <div
-                          id="flush-collapseFour"
-                          class="accordion-collapse collapse"
-                          aria-labelledby="flush-headingFour"
-                          data-bs-parent="#accordionFlushExample"
-                        >
-                          <div class="accordion-body">
-                            <div>
-                              <input
-                                class="form-control mb-3"
-                                type="search"
-                                placeholder="Search for a Property"
-                                aria-label="Search"
-                                id="property-search"
-                              />
-                            </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item" id="accordion-psets">
+                    <h2 class="accordion-header" id="flush-headingFour">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFour"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseFour"
+                      >
+                        Property Sets
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseFour"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingFour"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div class="accordion-body">
+                        <div>
+                          <input
+                            class="form-control mb-3"
+                            type="search"
+                            placeholder="Search for a Property"
+                            aria-label="Search"
+                            id="property-search"
+                          />
+                        </div>
 
-                            <div
-                              class="ifc-property-view"
-                              id="props-property-sets"
-                            >
-                              <p>
-                                Load a model and select an element to view its
-                                Property Sets
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="accordion-item" id="accordion-qsets">
-                        <h2 class="accordion-header" id="flush-headingFive">
-                          <button
-                            class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseFive"
-                            aria-expanded="false"
-                            aria-controls="flush-collapseFive"
-                          >
-                            Quantity Sets
-                          </button>
-                        </h2>
-                        <div
-                          id="flush-collapseFive"
-                          class="accordion-collapse collapse"
-                          aria-labelledby="flush-headingFive"
-                          data-bs-parent="#accordionFlushExample"
-                        >
-                          <div
-                            class="accordion-body ifc-property-view"
-                            id="props-qset-properties"
-                          >
-                            <p>
-                              Load a model and select an element to view its
-                              Quantity Sets (Feature WIP)
-                            </p>
-                          </div>
+                        <div class="ifc-property-view" id="props-property-sets">
+                          <p>
+                            Load a model and select an element to view its
+                            Property Sets
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="tab-pane fade"
-                    id="prop-two-pane"
-                    role="tabpanel"
-                    aria-labelledby="profile-tab"
-                    tabindex="0"
-                    style="margin-left: 0"
-                  >
-                    <div id="model-properties">All Model Properties</div>
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    id="prop-three-pane"
-                    role="tabpanel"
-                    aria-labelledby="contact-tab"
-                    tabindex="0"
-                    style="margin-left: 0"
-                  >
-                    Panel 3
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    id="prop-four-pane"
-                    role="tabpanel"
-                    aria-labelledby="disabled-tab"
-                    tabindex="0"
-                    style="margin-left: 0"
-                  >
-                    Panel 4
+                  <div class="accordion-item" id="accordion-qsets">
+                    <h2 class="accordion-header" id="flush-headingFive">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseFive"
+                        aria-expanded="false"
+                        aria-controls="flush-collapseFive"
+                      >
+                        Quantity Sets
+                      </button>
+                    </h2>
+                    <div
+                      id="flush-collapseFive"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="flush-headingFive"
+                      data-bs-parent="#accordionFlushExample"
+                    >
+                      <div
+                        class="accordion-body ifc-property-view"
+                        id="props-qset-properties"
+                      >
+                        <p>
+                          Load a model and select an element to view its
+                          Quantity Sets (Feature WIP)
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div
-                class="card-body mh-100 overflow-y-auto"
-                id="rightSubPanel-One-Collapse"
-              ></div>
             </div>
           </div>
         </div>
