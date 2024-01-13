@@ -121888,11 +121888,16 @@ let axesOn = true;
 
 // Demonstration IFC Files
 const demoIfcFiles = [
-  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_01.ifc",
-  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_02.ifc",
-  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rac_advanced_sample_project.ifc",
-  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rst_advanced_sample_project.ifc",
-  "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rme_advanced_sample_project.ifc",
+  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_01.ifc",
+  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/01.ifc",
+  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/02.ifc",
+  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/03.ifc",
+  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/04.ifc",
+  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/05.ifc",
+  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_02.ifc",
+  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rac_advanced_sample_project.ifc",
+  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rst_advanced_sample_project.ifc",
+  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rme_advanced_sample_project.ifc",
 ];
 
 const demoIfcFileElems = [
