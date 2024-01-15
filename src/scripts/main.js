@@ -41,7 +41,12 @@ let axesOn = true;
 // Demonstration IFC Files
 const demoIfcFiles = [
   // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_01.ifc",
-  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/01.ifc",
+  // "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/01.ifc",
+  "/assets/ifc/01.ifc",
+  "/assets/ifc/02.ifc",
+  "/assets/ifc/03.ifc",
+  "/assets/ifc/04.ifc",
+  "/assets/ifc/05.ifc",
   "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/02.ifc",
   "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/03.ifc",
   "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/04.ifc",
