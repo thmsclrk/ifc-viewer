@@ -40,21 +40,11 @@ let axesOn = true;
 
 // Demonstration IFC Files
 const demoIfcFiles = [
-  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_01.ifc",
-  // "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/01.ifc",
   "/assets/ifc/01.ifc",
   "/assets/ifc/02.ifc",
   "/assets/ifc/03.ifc",
   "/assets/ifc/04.ifc",
   "/assets/ifc/05.ifc",
-  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/02.ifc",
-  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/03.ifc",
-  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/04.ifc",
-  "https://raw.githubusercontent.com/thmsclrk/ifc-viewer/main/build/assets/ifc/05.ifc",
-  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/TESTED_Simple_project_02.ifc",
-  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rac_advanced_sample_project.ifc",
-  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rst_advanced_sample_project.ifc",
-  // "https://raw.githubusercontent.com/IFCjs/test-ifc-files/main/Revit/rme_advanced_sample_project.ifc",
 ];
 
 const demoIfcFileElems = [
@@ -99,13 +89,10 @@ axesToggle.addEventListener("click", () => {
 // LOAD IFC
 async function loadIFC(url) {
   loadingSpinner(true);
-
-  // model = await viewer.IFC.loadIfcUrl(url, true, onProgressFunction);
   model = await viewer.IFC.loadIfcUrl(url, true);
   const ifcProject = await viewer.IFC.getSpatialStructure(model.modelID);
 
   // INITIALISATION FUNCTIONS
-  // console.log(ifcProject);
   await serializeAllProperties(model);
   createTreeMenu(ifcProject);
   await elemToString(model.modelID, ifcProject);
@@ -120,7 +107,6 @@ async function loadIFC(url) {
 async function serializeAllProperties(model) {
   try {
     modelAsJson = await viewer.IFC.properties.serializeAllProperties(model);
-    // console.log(modelAsJson);
   } catch (error) {
     console.log("Unable to serialise all properties.");
     console.log(error);
@@ -153,8 +139,6 @@ window.ondblclick = async () => {
     viewer.IFC.selector.unpickIfcItems();
     return;
   }
-
-  // console.log(result);
 
   const { modelID, id } = result;
   const props = await viewer.IFC.getProperties(modelID, id, true, true);
@@ -614,8 +598,6 @@ function createSimpleChild(parent, node) {
   };
 
   childNode.onclick = async () => {
-    // console.log(`element ${node.expressID} selected.`);
-    // viewer.IFC.selector.pickIfcItemsByID(0, [node.expressID]);
     pickSelItem(node.expressID);
   };
 }
